@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+wget -O yakuakehere.tar.gz https://dl2.pling.com/api/files/download/j/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjE1NTQ2NTkxMzIiLCJ1IjpudWxsLCJsdCI6ImRvd25sb2FkIiwicyI6IjRmOWNiZjlhZjJjZDY2YmQwZjJkYzEyZjdkMDE5YTA0NjYzM2FiYWQxNzAzZDlhZDFjMmEwZjkzYTFjMzJhZTgwOWI0MGFlNWI1OTVmNDAwN2IzOGVlYjNmZGExZjE0MTNlZGJmMDA4ZTI0NGFlOTMxNjkzMzU2YTdlZWIzYmVjIiwidCI6MTY0MTY2NzM0MCwic3RmcCI6IjE1Y2ViODQ3ZTExMjNjZTQ4Y2RiMWY4ZTZiNjRiMDZkIiwic3RpcCI6IjE5Ny40Ny4xOS42MSJ9.RMr3OI2j46-0p1qJ_mzKLhlJA6aSf2UDOaeiBBTTLI0/yakuakehere.tar.gz
+tar xzvf yakuakehere.tar.gz
+chmod a+x yakuakehere.sh
+sudo cp yakuakehere.sh /usr/bin/
+cp yakuakehere.desktop ~/.local/share/kservices5/ServiceMenus
