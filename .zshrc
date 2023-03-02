@@ -5,25 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-export PATH=$HOME/bin/activitywatch/:$PATH
-export PATH=/usr/local/cuda-10.0/bin${PATH:+:${PATH}}
-export LD_LIBRARY_PATH=/usr/local/cuda-10.0/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-# export LD_LIBRARY_PATH=/home/ahmed/TensorRT-7.0.0.11/lib/${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export PYTHONPATH=/usr/lib/python3.6/dist-packages:$PYTHONPATH
-source $HOME/vulkan/1.2.148.1/setup-env.sh
-# export VULKAN_SDK=$HOME/vulkan/1.2.148.1/x86_64
-# export PATH=$VULKAN_SDK/bin:$PATH
-# export LD_LIBRARY_PATH=$VULKAN_SDK/lib:$LD_LIBRARY_PATH
-# export VK_LAYER_PATH=$VULKAN_SDK/etc/vulkan/explicit_layer.d
-export PATH=$HOME/.local/bin:$PATH
-export PATH=$HOME/bin/trex/:$PATH
-export PATH=$HOME/android/sdk/platform-tools/:$PATH
-export PATH=$HOME/bin/platform-tools/:$PATH
-
 # Path to your oh-my-zsh installation.
-export ZSH="/home/ahmed/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
+[ -f $ZSH/oh-my-zsh.sh ] && source $ZSH/oh-my-zsh.sh
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -94,57 +78,27 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git colored-man-pages colorize command-not-found safe-paste web-search autojump jump passgen docker docker-compose poetry gitignore)
-
-source $ZSH/oh-my-zsh.sh
+plugins=(git python ag colored-man-pages colorize command-not-found safe-paste web-search autojump jump passgen docker docker-compose gitignore zsh-interactive-cd yarn tmux thefuck systemd sudo branch command-not-found copybuffer copyfile copypath dotenv fzf golang history hitchhiker jsontools last-working-dir node npm nvm rsync zsh-navigation-tools alias-finder brew common-aliases cp debian git-extras toolbox httpie globalias git-prompt autojump history-substring-search)
 
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
-# export LANG=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='code'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-alias zshconfig="code ~/.zshrc"
-alias ohmyzsh="code ~/.oh-my-zsh"
-alias upgrade="sudo apt update -y && sudo apt upgrade -y"
-alias cave="cat ~/Documents/api | xclip -selection clipboard"
-alias grep="grep --color=auto"
-alias egrep="egrep --color=auto"
-alias fgrep="fgrep --color=auto"
-alias list="colorls -lA --sd"
-alias entropy="head /dev/urandom | tr -dc A-Za-z0-9 | head -c"
-alias mlserver="xxh +I xxh-plugin-zsh-ohmyzsh && source xxh.zsh -o PreferredAuthentications=publickey -i .ssh/auc_rsa 'ahmeds@10.7.60.150' +q"
-alias sh="bash"
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-
-export SAM_CLI_TELEMETRY=0
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-source /home/ahmed/.cargo/env
-source /usr/share/autojump/autojump.zsh
-
+[ -f $HOME/.antigen/antigen.zsh ] && source $HOME/.antigen/antigen.zsh
 POWERLEVEL9K_INSTALLATION_PATH=$ANTIGEN_BUNDLES/bhilburn/powerlevel9k
-
-# source ~/.oh-my-zsh/custom/antigen.zsh
 
 # Load the oh-my-zsh's library.
 antigen use oh-my-zsh
@@ -155,7 +109,7 @@ antigen bundle heroku
 antigen bundle pip
 antigen bundle lein
 antigen bundle command-not-found
-antigen bundle unixorn/git-extra-commands
+antigen bundle unixorn/git-extra-commands@main
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
 # Fish autosuggestion bundle.
@@ -180,14 +134,27 @@ bashcompinit
 eval "$(register-python-argcomplete3 pipx)"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/ahmed/google-cloud-sdk/path.zsh.inc' ]; then . '/home/ahmed/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/path.zsh.inc" ]; then source "$HOME/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
-if [ -f '/home/ahmed/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/ahmed/google-cloud-sdk/completion.zsh.inc'; fi
+if [ -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]; then source "$HOME/google-cloud-sdk/completion.zsh.inc"; fi
 
-export PATH="/home/ahmed/.pyenv/bin:$PATH"
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 
 # added by travis gem
-[ ! -s /home/ahmed/.travis/travis.sh ] || source /home/ahmed/.travis/travis.sh
+[ ! -s $HOME/.travis/travis.sh ] || source $HOME/.travis/travis.sh
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+alias zshconfig="vim ~/.zshrc"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+alias fix="fuck"
+export PATH="$PATH:/home/workspace/bin/git-duet"
+export GIT_DUET_AUTHORS_FILE=/home/workspace/bin/git-authors
+export GIT_EDITOR=vim
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"

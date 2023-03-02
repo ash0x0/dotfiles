@@ -1,3 +1,6 @@
+[core]
+	editor = vim
+	fileMode = false
 [user]
 	email = 12426718+ash0x0@users.noreply.github.com
 	name = Ahmed Elshafey

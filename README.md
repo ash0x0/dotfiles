@@ -17,4 +17,4 @@ dotfiles checkout
 dotfiles config status.showUntrackedFiles no
 ```
 
-Above is sourced from the [Bitbucket dotfiles tutorial](https://www.atlassian.com/git/tutorials/dotfiles)
+The above is sourced from the [Bitbucket dotfiles tutorial](https://www.atlassian.com/git/tutorials/dotfiles)
