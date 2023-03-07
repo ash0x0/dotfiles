@@ -86,6 +86,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+if [ -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"; fi
+
 if [ -f "$HOME/.cargo/env" ]; then source "$HOME/.cargo/env"; fi
 if [ -f "$HOME/.nvm/nvm.sh" ]; then source "$HOME/.nvm/nvm.sh"; fi
 if [ -f "/usr/share/autojump/autojump.zsh" ]; then source /usr/share/autojump/autojump.zsh; fi

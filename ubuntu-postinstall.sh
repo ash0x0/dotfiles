@@ -29,6 +29,10 @@ apt-mod() {
     sudo apt-get $*
 }
 
+function dotfiles {
+   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
+}
+
 mkdir -p $HOME/bin
 cd $HOME/bin
 
@@ -98,9 +102,6 @@ sudo gem install colorls
 mkdir -p $HOME/.antigen
 curl -L git.io/antigen > $HOME/.antigen/antigen.zsh
 
-info "Install Ohmyzsh"
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
-
 info "Install VSCode"
 wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
 sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
@@ -154,6 +155,7 @@ fi
 
 info "Install Homebrew"
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 brew update
 brew install pyenv
 
@@ -258,18 +260,27 @@ then
     apt-mod install ./mendeley.deb
 fi
 
-read -p "Enter email for github SSH key: " email
-
 info "Generate github ssh key"
+read -p "Enter email for github SSH key: " email
 ssh-keygen -t ed25519 -C "$email" -f $HOME/.ssh/github
+
+info "Starting ssh agent"
 eval "$(ssh-agent -s)"
+
+info "Add github ssh key to agent"
 ssh-add $HOME/.ssh/github
 
-read -p "Enter email for work SSH key: " workemail
-
 info "Generate work ssh key"
+read -p "Enter email for work SSH key: " workemail
 ssh-keygen -t ed25519 -C "$workemail" -f $HOME/.ssh/work
+
+info "Add work ssh key to agent"
 ssh-add $HOME/.ssh/work
+
+info "Install Ohmyzsh"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
 
 info "Change shell to zsh"
 chsh -s $(which zsh)
+
+dotfiles restore .zprofile .profile .zshrc
